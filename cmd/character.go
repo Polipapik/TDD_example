@@ -17,12 +17,15 @@ type Character struct {
 func (c Character) Hit(target *Character) string {
 	var ret string
 	if target.IsAlive == true {
+
 		target.Hp = target.Hp - c.Dmg
 		ret = fmt.Sprintf("%v hit %v, now %vs hp is %v", c.Name, target.Name, target.Name, target.Hp)
+
 		if target.Hp <= 0 {
 			target.IsAlive = false
 			ret = fmt.Sprintf("%v and %v died", ret, target.Name)
 		}
+
 	} else {
 		ret = fmt.Sprintf("%v is already dead", target.Name)
 	}
