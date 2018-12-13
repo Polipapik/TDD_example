@@ -65,7 +65,7 @@ func TestHitFunction_CheckDamage(t *testing.T) {
 	actual := monster.Hp
 
 	if !assert.True(t, actual == expected) {
-		t.Errorf("func Hit returned unexpected monster hp result: got %vhp, want %vhp", actual, expected)
+		t.Errorf("func Hit returned unexpected monster hp value: got %vhp, want %vhp", actual, expected)
 	}
 	// Добавляем математику
 }
@@ -84,7 +84,7 @@ func TestHitFunction_CheckIsAlive(t *testing.T) {
 	actual := monster.IsAlive
 
 	if !assert.True(t, actual == expected) {
-		t.Errorf("func Hit returned unexpected monster isAlive result: got %v, want %v", actual, expected)
+		t.Errorf("func Hit returned unexpected monster isAlive value: got %v, want %v", actual, expected)
 	}
 	//В результате этого теста была добавлена проверка, если hp < 0, то персонаж умирает
 }
@@ -103,7 +103,7 @@ func TestHitFunction_CheckIsAliveHitting(t *testing.T) {
 	actual := monster.Hp
 
 	if !assert.True(t, actual == expected) {
-		t.Errorf("func Hit returned unexpected monster hp result: got %vhp, want %vhp", actual, expected)
+		t.Errorf("func Hit returned unexpected monster hp value: got %vhp, want %vhp", actual, expected)
 	}
 	// В результате этого теста в функции Hit появилась обертка в виде первого if target.IsAlive == true {..}
 }
@@ -136,4 +136,25 @@ func TestHitFunction_Result(t *testing.T) {
 		t.Errorf("func Hit returned unexpected result: got { %v }, want { %v }", actual, expected)
 	}
 	// В результате этого теста добавилось возвращаемое значение функции Hit, и логика связанная с ним
+}
+
+func TestFightFunction(t *testing.T) {
+	hero := characters["hero"]
+	monster := characters["monster"]
+
+	Fight(&hero, &monster)
+	expected := false
+	actual := monster.IsAlive
+
+	if !assert.True(t, actual == expected) {
+		t.Errorf("func Fight returned unexpected monster isAlive value: got { %v }, want { %v }", actual, expected)
+	}
+
+	expectedHp := hero.Hp
+	Fight(&hero, &monster)
+	actualHp := hero.Hp
+
+	if !assert.True(t, actualHp == expectedHp) {
+		t.Errorf("func Fight returned unexpected monster isAlive value: got { %v }, want { %v }", actual, expected)
+	}
 }
